@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import requestToken from '../services/requestAPITrivia';
 
 class Login extends Component {
@@ -31,6 +32,9 @@ class Login extends Component {
     const { inputName, inputEmail } = this.state;
     return (
       <div>
+        <Link to="/settings">
+          <button type="button" data-testid="btn-settings">Configurações</button>
+        </Link>
         <label htmlFor="inputName">
           Nome:
           <input
@@ -60,7 +64,6 @@ class Login extends Component {
           onClick={ this.handleClickRequstToken }
         >
           Jogar
-
         </button>
       </div>
     );

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import requestToken from '../services/requestAPITrivia';
 
 class Login extends Component {
   constructor() {
@@ -8,6 +10,7 @@ class Login extends Component {
       inputEmail: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClickRequstToken = this.handleClickRequstToken.bind(this);
   }
 
   handleChange({ target }) {
@@ -15,6 +18,13 @@ class Login extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  async handleClickRequstToken() {
+    const { history } = this.props;
+    const tokenAPI = await requestToken();
+    localStorage.setItem('token', tokenAPI.token);
+    history.push('/tela-de-jogo');
   }
 
   render() {
@@ -47,6 +57,7 @@ class Login extends Component {
           disabled={ !(inputEmail.length > 0 && inputName.length > 0) }
           type="button"
           data-testid="btn-play"
+          onClick={ this.handleClickRequstToken }
         >
           Jogar
 
@@ -55,5 +66,11 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default Login;

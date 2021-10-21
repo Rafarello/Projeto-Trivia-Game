@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Header from '../componets/Header';
 
-class TelaDeJogo extends Component {
+class Feedback extends Component {
   render() {
     return (
       <div>
         <Header />
-        <h2>Tela de Jogo</h2>
+        <h1 data-testid="settings-title">Feedback</h1>
       </div>
     );
   }
 }
 
-export default TelaDeJogo;
+export default Feedback;

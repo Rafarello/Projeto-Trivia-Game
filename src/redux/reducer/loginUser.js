@@ -5,13 +5,15 @@ const INITIAL_STATE = {
   name: 'Pessoa Jogadora',
   placar: 0,
   urlGravatar: URL_IMAGEM,
+  email: '',
 };
 
 function loginUser(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'LOGIN':
     return { ...state,
-      name: action.payload };
+      name: action.payload.inputName,
+      email: action.payload.inputEmail };
   default:
     return state;
   }

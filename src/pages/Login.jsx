@@ -25,12 +25,11 @@ class Login extends Component {
   }
 
   async handleClickRequstToken() {
-    const { inputName } = this.state;
+    const { inputName, inputEmail } = this.state;
     const { history, loginUserAction } = this.props;
     const tokenAPI = await requestToken();
     localStorage.setItem('token', tokenAPI.token);
-    console.log(inputName);
-    loginUserAction(inputName);
+    loginUserAction({ inputName, inputEmail });
     history.push('/tela-de-jogo');
   }
 

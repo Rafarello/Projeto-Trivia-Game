@@ -23,23 +23,28 @@ class TelaDeJogo extends Component {
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6
   renderQuestions(array) {
     return array.map((question, idx) => {
-      const arrayResponsesIncorrects = question.incorrect_answers.map((e, idxx) => (
+      const arrayAnswerIncorrect = question.incorrect_answers.map((e, idxx) => (
         <button
           type="button"
           data-testid={ `wrong-answer-${idxx}` }
           key={ idxx }
+          onClick={ () => { } }
         >
           { e }
-
         </button>
       ));
-      const arrayResponseCorrect = (
-        <button type="button" data-testid="correct-answer" key="4">
+      const answerCorrect = (
+        <button
+          type="button"
+          data-testid="correct-answer"
+          key="4"
+          onClick={ () => { } }
+        >
           { question.correct_answer }
         </button>);
       const MEIO = 0.5;
-      const allResponses = [...arrayResponsesIncorrects, arrayResponseCorrect];
-      const shuffledArr = allResponses.sort(() => MEIO - Math.random());
+      const allAnswers = [...arrayAnswerIncorrect, answerCorrect];
+      const shuffledArr = allAnswers.sort(() => MEIO - Math.random());
       return (
         <div key={ idx }>
           <h5 data-testid="question-category">

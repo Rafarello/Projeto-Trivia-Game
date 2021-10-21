@@ -4,6 +4,6 @@ import Content from './componets/content';
 
 export default function App() {
   return (
-   <Content />
+    <Content />
   );
 }

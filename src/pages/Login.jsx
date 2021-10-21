@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import logo from '../images/trivia.png';
 import requestToken from '../services/requestAPITrivia';
+import loginUser from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {
@@ -23,9 +25,12 @@ class Login extends Component {
   }
 
   async handleClickRequstToken() {
-    const { history } = this.props;
+    const { inputName } = this.state;
+    const { history, loginUserAction } = this.props;
     const tokenAPI = await requestToken();
     localStorage.setItem('token', tokenAPI.token);
+    console.log(inputName);
+    loginUserAction(inputName);
     history.push('/tela-de-jogo');
   }
 
@@ -85,6 +90,11 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  loginUserAction: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  loginUserAction: (e) => dispatch(loginUser(e)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

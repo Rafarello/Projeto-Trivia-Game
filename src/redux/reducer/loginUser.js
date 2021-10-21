@@ -3,7 +3,6 @@ const URL_IMAGEM = 'https://www.gravatar.com/avatar/0000000000000000000000000000
 
 const INITIAL_STATE = {
   name: 'Pessoa Jogadora',
-  placar: 0,
   urlGravatar: URL_IMAGEM,
   email: '',
 };

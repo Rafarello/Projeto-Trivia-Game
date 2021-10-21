@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../componets/Header';
 import Timer from '../componets/Timer';
+import { somaPlacar } from '../redux/actions/index';
 
 import { requestQuestions } from '../services/requestAPITrivia';
 
@@ -14,6 +15,7 @@ class TelaDeJogo extends Component {
       indice: 0,
       btnStyleIncorrect: {},
       btnStyleCorrect: {},
+      isTimer: true,
     };
     this.requestQuestionsApi = this.requestQuestionsApi.bind(this);
     this.alteraCorBtn = this.alteraCorBtn.bind(this);
@@ -28,19 +30,31 @@ class TelaDeJogo extends Component {
     this.setState({ questions: questions.results });
   }
 
-  funcaoFicaVermelho(td) {
-    td.style.border = '#FF0F0F';
-  }
-
-  alteraCorBtn() {
+  alteraCorBtn(event) {
+    const DEZ = 10;
+    const TRES = 3;
     this.setState({ btnStyleIncorrect: { border: '3px solid rgb(255, 0, 0) ' },
-      btnStyleCorrect: { border: '3px solid rgb(6, 240, 15)' } });
+      btnStyleCorrect: { border: '3px solid rgb(6, 240, 15)' },
+      isTimer: false });
+
+    const { disableBtn, somaPlacarAction } = this.props;
+    switch (event.difficulty) {
+    case 'easy':
+      return somaPlacarAction(DEZ + (1 * +disableBtn));
+    case 'medium':
+      return somaPlacarAction(DEZ + (2 * +disableBtn));
+    case 'hard':
+      return somaPlacarAction(DEZ + (TRES * +disableBtn));
+    default:
+      return disableBtn;
+    }
   }
 
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6
   renderQuestions(array) {
     const { disableBtn } = this.props;
-    const { btnStyleIncorrect, btnStyleCorrect } = this.state;
+    const btnBoolean = disableBtn === 0;
+    const { btnStyleIncorrect, btnStyleCorrect, isTimer } = this.state;
     return array.map((question, idx) => {
       const arrayAnswerIncorrect = question.incorrect_answers.map((e, idxx) => (
         <button
@@ -48,8 +62,8 @@ class TelaDeJogo extends Component {
           data-testid={ `wrong-answer-${idxx}` }
           key={ idxx }
           style={ btnStyleIncorrect }
-          onClick={ this.alteraCorBtn }
-          disabled={ disableBtn }
+          onClick={ () => this.alteraCorBtn('') }
+          disabled={ btnBoolean }
         >
           { e }
         </button>
@@ -59,9 +73,9 @@ class TelaDeJogo extends Component {
           type="button"
           data-testid="correct-answer"
           key="4"
-          onClick={ this.alteraCorBtn }
+          onClick={ () => this.alteraCorBtn(question) }
           style={ btnStyleCorrect }
-          disabled={ disableBtn }
+          disabled={ btnBoolean }
         >
           { question.correct_answer }
         </button>);
@@ -79,7 +93,7 @@ class TelaDeJogo extends Component {
           <div data-testid="question-text">
             { shuffledArr.map((e) => (e))}
           </div>
-          <Timer />
+          { isTimer ? <Timer /> : 'Tempo Esgotado' }
         </div>
       );
     });
@@ -87,7 +101,6 @@ class TelaDeJogo extends Component {
 
   render() {
     const { questions, indice } = this.state;
-    console.log(questions);
     return (
       <div>
         <Header />
@@ -97,7 +110,11 @@ class TelaDeJogo extends Component {
         <button
           type="button"
           data-testid="btn-next"
-          onClick={ () => { this.setState({ indice: indice + 1 }); } }
+          onClick={ () => {
+            this.setState({ indice: indice + 1,
+              btnStyleIncorrect: {},
+              btnStyleCorrect: {} });
+          } }
         >
           Próxima
         </button>
@@ -107,11 +124,17 @@ class TelaDeJogo extends Component {
 }
 
 TelaDeJogo.propTypes = {
-  disableBtn: PropTypes.bool.isRequired,
+  disableBtn: PropTypes.string.isRequired,
+  somaPlacarAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   disableBtn: state.timer.btnResposta,
+  placar: state.timer.placar,
 });
 
-export default connect(mapStateToProps)(TelaDeJogo);
+const mapDispatchToProps = (dispatch) => ({
+  somaPlacarAction: (e) => dispatch(somaPlacar(e)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TelaDeJogo);

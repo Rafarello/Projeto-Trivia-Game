@@ -6,9 +6,8 @@ import { btnResposta } from '../redux/actions/index';
 class Cronometer extends Component {
   constructor(props) {
     super(props);
-    this.state = { seconds: 5,
+    this.state = { seconds: 10,
     };
-    this.timeLimit = this.timeLimit.bind(this);
   }
 
   componentDidMount() {
@@ -21,19 +20,28 @@ class Cronometer extends Component {
     }, ONE_SECOND);
   }
 
-  timeLimit() {
+  componentDidUpdate(prevProps, prevState) {
+    const { desableBtn } = this.props;
+    const { seconds } = this.state;
+    const TIME_LIMIT = 1;
+    if (prevState.seconds === TIME_LIMIT) {
+      clearInterval(this.intervalID);
+      desableBtn(seconds);
+    }
+  }
+
+  componentWillUnmount() {
+    const { seconds } = this.state;
     const { desableBtn } = this.props;
     clearInterval(this.intervalID);
-    desableBtn(true);
-    return 'Tempo Esgotado!';
+    desableBtn(seconds);
   }
 
   render() {
-    const TIME_LIMIT = 0;
     const { seconds } = this.state;
     return (
       <h2>
-        { seconds > TIME_LIMIT ? seconds : this.timeLimit() }
+        { seconds }
       </h2>
     );
   }

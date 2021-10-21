@@ -7,8 +7,12 @@ class TelaDeJogo extends Component {
     super();
     this.state = {
       questions: '',
+      indice: 0,
+      btnStyleIncorrect: {},
+      btnStyleCorrect: {},
     };
     this.requestQuestionsApi = this.requestQuestionsApi.bind(this);
+    this.alteraCorBtn = this.alteraCorBtn.bind(this);
   }
 
   componentDidMount() {
@@ -20,15 +24,26 @@ class TelaDeJogo extends Component {
     this.setState({ questions: questions.results });
   }
 
+  funcaoFicaVermelho(td) {
+    td.style.border = '#FF0F0F';
+  }
+
+  alteraCorBtn() {
+    this.setState({ btnStyleIncorrect: { border: '3px solid rgb(255, 0, 0) ' },
+    btnStyleCorrect: { border: '3px solid rgb(6, 240, 15)' } });
+  }
+
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6
   renderQuestions(array) {
+    const { btnStyleIncorrect, btnStyleCorrect } = this.state;
     return array.map((question, idx) => {
       const arrayAnswerIncorrect = question.incorrect_answers.map((e, idxx) => (
         <button
           type="button"
           data-testid={ `wrong-answer-${idxx}` }
           key={ idxx }
-          onClick={ () => { } }
+          style={ btnStyleIncorrect }
+          onClick={ this.alteraCorBtn }
         >
           { e }
         </button>
@@ -38,7 +53,8 @@ class TelaDeJogo extends Component {
           type="button"
           data-testid="correct-answer"
           key="4"
-          onClick={ () => { } }
+          onClick={ this.alteraCorBtn }
+          style={ btnStyleCorrect }
         >
           { question.correct_answer }
         </button>);
@@ -53,23 +69,30 @@ class TelaDeJogo extends Component {
           <h3 data-testid="question-text">
             {`Pergunta: ${question.question}`}
           </h3>
-          <h3 data-testid="question-text">
+          <div data-testid="question-text">
             { shuffledArr.map((e) => (e))}
-          </h3>
+          </div>
         </div>
       );
     });
   }
 
   render() {
-    const { questions } = this.state;
+    const { questions, indice } = this.state;
     console.log(questions);
     return (
       <div>
         <Header />
         <h2>Tela de Jogo</h2>
         { !questions ? 'Carregado...'
-          : this.renderQuestions(questions)}
+          : this.renderQuestions(questions)[indice]}
+        <button
+          type="button"
+          data-testid="btn-next"
+          onClick={ () => { this.setState({ indice: indice + 1 }); } }
+        >
+          Próxima
+        </button>
       </div>
     );
   }

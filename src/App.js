@@ -10,8 +10,8 @@ export default function App() {
     <div className="App">
       <Switch>
         <Route path="/tela-de-jogo" component={ TelaDeJogo } />
-        <Route exact path="/" component={ Login } />
         <Route path="/settings" component={ Settings } />
+        <Route exact path="/" component={ Login } />
       </Switch>
     </div>
   );

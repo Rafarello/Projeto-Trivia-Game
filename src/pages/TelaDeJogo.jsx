@@ -30,7 +30,7 @@ class TelaDeJogo extends Component {
 
   alteraCorBtn() {
     this.setState({ btnStyleIncorrect: { border: '3px solid rgb(255, 0, 0) ' },
-    btnStyleCorrect: { border: '3px solid rgb(6, 240, 15)' } });
+      btnStyleCorrect: { border: '3px solid rgb(6, 240, 15)' } });
   }
 
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6

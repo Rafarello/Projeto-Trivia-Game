@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import logo from '../images/trivia.png';
 import requestToken from '../services/requestAPITrivia';
 
 class Login extends Component {
@@ -28,14 +29,19 @@ class Login extends Component {
     history.push('/tela-de-jogo');
   }
 
+  // a div da linha 37 era um button com o calor "Configurações"
   render() {
     const { inputName, inputEmail } = this.state;
     return (
-      <div>
-        <Link to="/settings">
-          <button type="button" data-testid="btn-settings">Configurações</button>
-        </Link>
-        <label htmlFor="inputName">
+      <div className="login-card">
+        <div className="top-login">
+          <div className="tapaburaco" />
+          <img src={ logo } alt="Trivia" className="logo" />
+          <Link to="/settings" title="Configurações">
+            <div type="button" className="settings" data-testid="btn-settings" />
+          </Link>
+        </div>
+        <label htmlFor="inputName" className="label">
           Nome:
           <input
             id="inputName"
@@ -44,9 +50,11 @@ class Login extends Component {
             name="inputName"
             onChange={ this.handleChange }
             value={ inputName }
+            placeholder="Escreva Seu nome"
+            className="name-login"
           />
         </label>
-        <label htmlFor="inputEmail">
+        <label htmlFor="inputEmail" className="label">
           Email:
           <input
             id="inputEmail"
@@ -55,6 +63,8 @@ class Login extends Component {
             name="inputEmail"
             onChange={ this.handleChange }
             value={ inputEmail }
+            placeholder="Escreva Seu email"
+            className="email-login"
           />
         </label>
         <button
@@ -62,6 +72,7 @@ class Login extends Component {
           type="button"
           data-testid="btn-play"
           onClick={ this.handleClickRequstToken }
+          className="button-login"
         >
           Jogar
         </button>

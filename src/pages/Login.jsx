@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import logo from '../images/trivia.png';
 import requestToken from '../services/requestAPITrivia';
-import loginUser from '../redux/actions/index';
+import { loginUser } from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {

@@ -1,5 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Header from '../componets/Header';
+import Timer from '../componets/Timer';
+
 import { requestQuestions } from '../services/requestAPITrivia';
 
 class TelaDeJogo extends Component {
@@ -35,6 +39,7 @@ class TelaDeJogo extends Component {
 
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6
   renderQuestions(array) {
+    const { disableBtn } = this.props;
     const { btnStyleIncorrect, btnStyleCorrect } = this.state;
     return array.map((question, idx) => {
       const arrayAnswerIncorrect = question.incorrect_answers.map((e, idxx) => (
@@ -44,6 +49,7 @@ class TelaDeJogo extends Component {
           key={ idxx }
           style={ btnStyleIncorrect }
           onClick={ this.alteraCorBtn }
+          disabled={ disableBtn }
         >
           { e }
         </button>
@@ -55,6 +61,7 @@ class TelaDeJogo extends Component {
           key="4"
           onClick={ this.alteraCorBtn }
           style={ btnStyleCorrect }
+          disabled={ disableBtn }
         >
           { question.correct_answer }
         </button>);
@@ -72,6 +79,7 @@ class TelaDeJogo extends Component {
           <div data-testid="question-text">
             { shuffledArr.map((e) => (e))}
           </div>
+          <Timer />
         </div>
       );
     });
@@ -98,4 +106,12 @@ class TelaDeJogo extends Component {
   }
 }
 
-export default TelaDeJogo;
+TelaDeJogo.propTypes = {
+  disableBtn: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  disableBtn: state.timer.btnResposta,
+});
+
+export default connect(mapStateToProps)(TelaDeJogo);

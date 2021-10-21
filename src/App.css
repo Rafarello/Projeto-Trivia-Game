@@ -1,57 +1,88 @@
-.App {
-  text-align: center;
+body {
+  background-color: rgb(116, 116, 116);
+  display: flex;
+  justify-content: center;
 }
 
-.App-logo {
-  height: 20vmin;
-  pointer-events: none;
-}
-
-.red-border {
-  border: 1px solid red;
-}
-
-.green-border {
-  border: 1px solid green;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  }
-}
-
-.App-header {
+.login-card {
   align-items: center;
-  background-color: #282c34;
-  color: white;
+  background: rgb(202, 202, 202);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  height: 60vh;
+  justify-content: space-evenly;
+  margin: 5em;
+  width: 55vh;
 }
 
-.App-link {
-  color: #61dafb;
+.label {
+  display: flex;
+  flex-direction: column;
+  font-size: 5vh;
 }
 
-@keyframes shake {
+.email-login {
+  border-radius: 5px;
+  border-style: none;
+  font-size: large;
+  height: 5vh;
+  outline: none;
+  text-align: center;
+  width: 35vh;
+}
 
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
+.name-login {
+  border-radius: 5px;
+  border-style: none;
+  font-size: large;
+  height: 5vh;
+  outline: none;
+  text-align: center;
+  width: 35vh;
+}
 
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
+.button-login {
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+  font-size: large;
+  height: 5vh;
+  width: 35vh;
+}
 
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
+/* button[disabled=disabled], button:disabled {
+  background-color: rgb(23, 90, 23);
+  color: rgb(146, 146, 146);
+} */
 
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
+.button-login:active {
+  background-color: #3e8e41;
+  transform: translateY(2px);
+}
+
+.settings {
+  align-items: flex-end;
+  background-color: black;
+  border-radius: 50%;
+  height: 30px;
+  justify-self: flex-end;
+  width: 30px;
+}
+
+.tapaburaco {
+  align-items: flex-end;
+  height: 40px;
+  justify-self: flex-end;
+  width: 40px;
+}
+
+.logo {
+  width: 25vh;
+}
+
+.top-login {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }

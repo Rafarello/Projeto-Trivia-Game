@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Header from '../componets/Header';
 import Timer from '../componets/Timer';
 import { somaPlacar } from '../redux/actions/index';
+
+import './TelaDeJogo.css';
 
 import { requestQuestions } from '../services/requestAPITrivia';
 
@@ -14,9 +16,6 @@ class TelaDeJogo extends Component {
     this.state = {
       questions: '',
       indice: 0,
-      btnStyleIncorrect: {},
-      btnStyleCorrect: {},
-      isTimer: true,
       btnProxima: false,
     };
     this.requestQuestionsApi = this.requestQuestionsApi.bind(this);
@@ -35,9 +34,7 @@ class TelaDeJogo extends Component {
   alteraCorBtn(difficulty) {
     const DEZ = 10;
     const TRES = 3;
-    this.setState({ btnStyleIncorrect: { border: '3px solid rgb(255, 0, 0) ' },
-      btnStyleCorrect: { border: '3px solid rgb(6, 240, 15)' },
-      isTimer: false,
+    this.setState({ btnBoolean: true,
       btnProxima: true });
 
     const { disableBtn, somaPlacarAction } = this.props;
@@ -70,29 +67,29 @@ class TelaDeJogo extends Component {
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6
   renderQuestions(array) {
     const { disableBtn } = this.props;
-    const btnBoolean = disableBtn === 0;
-    const { btnStyleIncorrect, btnStyleCorrect, isTimer } = this.state;
+    const { btnBoolean } = this.state;
+    const btnBool = disableBtn === 0 || btnBoolean;
     return array.map((question, idx) => {
       const arrayAnswerIncorrect = question.incorrect_answers.map((e, idxx) => (
         <button
+          className="incorrectResponse"
           type="button"
           data-testid={ `wrong-answer-${idxx}` }
           key={ idxx }
-          style={ btnStyleIncorrect }
           onClick={ () => this.alteraCorBtn('error') }
-          disabled={ btnBoolean }
+          disabled={ btnBool }
         >
           { e }
         </button>
       ));
       const answerCorrect = (
         <button
+          className="correctResponse"
           type="button"
           data-testid="correct-answer"
           key="4"
           onClick={ () => this.alteraCorBtn(question.difficulty) }
-          style={ btnStyleCorrect }
-          disabled={ btnBoolean }
+          disabled={ btnBool }
         >
           { question.correct_answer }
         </button>);
@@ -110,7 +107,7 @@ class TelaDeJogo extends Component {
           <div data-testid="question-text">
             { shuffledArr.map((e) => (e))}
           </div>
-          { isTimer ? <Timer /> : 'Tempo Esgotado' }
+          { !btnBool ? <Timer /> : '' }
         </div>
       );
     });
@@ -119,11 +116,7 @@ class TelaDeJogo extends Component {
   renderFinalJogo() {
     this.saveToStore();
     return (
-      <div>
-        <h3>Final de Jogo</h3>
-        <Link to="/"><button type="button">Menu Login</button></Link>
-      </div>
-
+      <Redirect to="/feedback" />
     );
   }
 
@@ -136,8 +129,8 @@ class TelaDeJogo extends Component {
         data-testid="btn-next"
         onClick={ () => {
           this.setState({ indice: indice + 1,
-            btnStyleIncorrect: {},
-            btnStyleCorrect: {} });
+            btnBoolean: false,
+          });
         } }
       >
         Próxima
@@ -149,7 +142,7 @@ class TelaDeJogo extends Component {
     const { questions, indice, btnProxima } = this.state;
     const renderQuestions = !questions ? 'Carregado...'
       : this.renderQuestions(questions)[indice];
-    if (questions && indice === questions.length) { return this.renderFinalJogo(); }
+    if (questions && indice === questions.length - 1) { return this.renderFinalJogo(); }
     return (
       <div>
         <Header />

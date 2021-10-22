@@ -6,7 +6,7 @@ import { btnResposta } from '../redux/actions/index';
 class Cronometer extends Component {
   constructor(props) {
     super(props);
-    this.state = { seconds: 10,
+    this.state = { seconds: 30,
     };
   }
 
@@ -41,7 +41,7 @@ class Cronometer extends Component {
     const { seconds } = this.state;
     return (
       <h2>
-        { seconds }
+        { seconds === 0 ? 'Tempo Esgotado' : seconds}
       </h2>
     );
   }

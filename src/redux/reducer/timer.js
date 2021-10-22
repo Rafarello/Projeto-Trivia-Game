@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   btnResposta: '',
   placar: 0,
   assertions: 0,
+  players: {},
 };
 
 function btnRespostaesable(state = INITIAL_STATE, action) {
@@ -13,6 +14,10 @@ function btnRespostaesable(state = INITIAL_STATE, action) {
     return { ...state,
       placar: action.payload + state.placar,
       assertions: state.assertions + 1 };
+  case 'PLAYERS':
+    console.log(state.players);
+    return { ...state,
+      players: [state.players] };
   default:
     return state;
   }

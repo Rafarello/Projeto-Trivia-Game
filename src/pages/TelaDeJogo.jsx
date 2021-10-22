@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Header from '../componets/Header';
 import Timer from '../componets/Timer';
+import { somaPlacar } from '../redux/actions/index';
+
+import './TelaDeJogo.css';
 
 import { requestQuestions } from '../services/requestAPITrivia';
 
@@ -12,8 +16,7 @@ class TelaDeJogo extends Component {
     this.state = {
       questions: '',
       indice: 0,
-      btnStyleIncorrect: {},
-      btnStyleCorrect: {},
+      btnProxima: false,
     };
     this.requestQuestionsApi = this.requestQuestionsApi.bind(this);
     this.alteraCorBtn = this.alteraCorBtn.bind(this);
@@ -28,40 +31,65 @@ class TelaDeJogo extends Component {
     this.setState({ questions: questions.results });
   }
 
-  funcaoFicaVermelho(td) {
-    td.style.border = '#FF0F0F';
+  alteraCorBtn(difficulty) {
+    const DEZ = 10;
+    const TRES = 3;
+    this.setState({ btnBoolean: true,
+      btnProxima: true });
+
+    const { disableBtn, somaPlacarAction } = this.props;
+    switch (difficulty) {
+    case 'easy':
+      return somaPlacarAction(DEZ + (1 * +disableBtn));
+    case 'medium':
+      return somaPlacarAction(DEZ + (2 * +disableBtn));
+    case 'hard':
+      return somaPlacarAction(DEZ + (TRES * +disableBtn));
+    case 'error':
+      return 0;
+    default:
+      return disableBtn;
+    }
   }
 
-  alteraCorBtn() {
-    this.setState({ btnStyleIncorrect: { border: '3px solid rgb(255, 0, 0) ' },
-      btnStyleCorrect: { border: '3px solid rgb(6, 240, 15)' } });
+  saveToStore() {
+    const getStorage = JSON.parse(localStorage.getItem('state'));
+    console.log(getStorage);
+    const { name, placar, email, assertions } = this.props;
+    const player = { name,
+      gravatarEmail: email,
+      score: placar,
+      assertions };
+    const newArray = !getStorage ? [player] : [...getStorage, player];
+    localStorage.setItem('state', JSON.stringify(newArray));
   }
 
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6
   renderQuestions(array) {
     const { disableBtn } = this.props;
-    const { btnStyleIncorrect, btnStyleCorrect } = this.state;
+    const { btnBoolean } = this.state;
+    const btnBool = disableBtn === 0 || btnBoolean;
     return array.map((question, idx) => {
       const arrayAnswerIncorrect = question.incorrect_answers.map((e, idxx) => (
         <button
+          className="incorrectResponse"
           type="button"
           data-testid={ `wrong-answer-${idxx}` }
           key={ idxx }
-          style={ btnStyleIncorrect }
-          onClick={ this.alteraCorBtn }
-          disabled={ disableBtn }
+          onClick={ () => this.alteraCorBtn('error') }
+          disabled={ btnBool }
         >
           { e }
         </button>
       ));
       const answerCorrect = (
         <button
+          className="correctResponse"
           type="button"
           data-testid="correct-answer"
           key="4"
-          onClick={ this.alteraCorBtn }
-          style={ btnStyleCorrect }
-          disabled={ disableBtn }
+          onClick={ () => this.alteraCorBtn(question.difficulty) }
+          disabled={ btnBool }
         >
           { question.correct_answer }
         </button>);
@@ -79,39 +107,75 @@ class TelaDeJogo extends Component {
           <div data-testid="question-text">
             { shuffledArr.map((e) => (e))}
           </div>
-          <Timer />
+          { !btnBool ? <Timer /> : '' }
         </div>
       );
     });
   }
 
+  renderFinalJogo() {
+    this.saveToStore();
+    return (
+      <Redirect to="/feedback" />
+    );
+  }
+
+  renderButtonProxima() {
+    const { indice } = this.state;
+
+    return (
+      <button
+        type="button"
+        data-testid="btn-next"
+        onClick={ () => {
+          this.setState({ indice: indice + 1,
+            btnBoolean: false,
+          });
+        } }
+      >
+        Próxima
+      </button>
+    );
+  }
+
   render() {
-    const { questions, indice } = this.state;
-    console.log(questions);
+    const { questions, indice, btnProxima } = this.state;
+    const renderQuestions = !questions ? 'Carregado...'
+      : this.renderQuestions(questions)[indice];
+    if (questions && indice === questions.length - 1) { return this.renderFinalJogo(); }
     return (
       <div>
         <Header />
         <h2>Tela de Jogo</h2>
-        { !questions ? 'Carregado...'
-          : this.renderQuestions(questions)[indice]}
-        <button
-          type="button"
-          data-testid="btn-next"
-          onClick={ () => { this.setState({ indice: indice + 1 }); } }
-        >
-          Próxima
-        </button>
+        {renderQuestions}
+        { !btnProxima ? ''
+          : this.renderButtonProxima()}
+
       </div>
     );
   }
 }
 
 TelaDeJogo.propTypes = {
-  disableBtn: PropTypes.bool.isRequired,
+  assertions: PropTypes.number.isRequired,
+  disableBtn: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placar: PropTypes.number.isRequired,
+  somaPlacarAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   disableBtn: state.timer.btnResposta,
+  placar: state.timer.placar,
+  name: state.loginUser.name,
+  email: state.loginUser.email,
+  assertions: state.timer.assertions,
+  urlGravatar: state.loginUser.urlGravatar,
 });
 
-export default connect(mapStateToProps)(TelaDeJogo);
+const mapDispatchToProps = (dispatch) => ({
+  somaPlacarAction: (e) => dispatch(somaPlacar(e)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TelaDeJogo);

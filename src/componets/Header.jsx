@@ -23,7 +23,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   name: state.loginUser.name,
-  placar: state.loginUser.placar,
+  placar: state.timer.placar,
   urlGravatar: state.loginUser.urlGravatar,
 });
 

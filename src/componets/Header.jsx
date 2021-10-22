@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Header extends Component {
+  getScore() {
+    localStorage.getItem();
+  }
+
   render() {
     const { name, placar, urlGravatar } = this.props;
     return (

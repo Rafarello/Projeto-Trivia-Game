@@ -24,6 +24,7 @@ class TelaDeJogo extends Component {
 
   componentDidMount() {
     this.requestQuestionsApi();
+    this.saveToStore();
   }
 
   async requestQuestionsApi() {
@@ -37,14 +38,16 @@ class TelaDeJogo extends Component {
     this.setState({ btnBoolean: true,
       btnProxima: true });
 
-    const { disableBtn, somaPlacarAction } = this.props;
+    const { disableBtn } = this.props;
     switch (difficulty) {
     case 'easy':
-      return somaPlacarAction(DEZ + (1 * +disableBtn));
+      return (
+        this.alteraScoreLocalStorage(DEZ + (1 * +disableBtn))
+      );
     case 'medium':
-      return somaPlacarAction(DEZ + (2 * +disableBtn));
+      return this.alteraScoreLocalStorage(DEZ + (2 * +disableBtn));
     case 'hard':
-      return somaPlacarAction(DEZ + (TRES * +disableBtn));
+      return this.alteraScoreLocalStorage(DEZ + (TRES * +disableBtn));
     case 'error':
       return 0;
     default:
@@ -52,16 +55,32 @@ class TelaDeJogo extends Component {
     }
   }
 
+  alteraScoreLocalStorage(score) {
+    const getStorage = JSON.parse(localStorage.getItem('state'));
+    console.log(getStorage);
+
+    const { name, email, assertions, somaPlacarAction } = this.props;
+    const player = { player: {
+      name,
+      gravatarEmail: email,
+      score,
+      assertions,
+    } };
+    localStorage.setItem('state', JSON.stringify(player));
+    somaPlacarAction(score);
+  }
+
   saveToStore() {
     const getStorage = JSON.parse(localStorage.getItem('state'));
     console.log(getStorage);
     const { name, placar, email, assertions } = this.props;
-    const player = { name,
+    const player = { player: {
+      name,
       gravatarEmail: email,
       score: placar,
-      assertions };
-    const newArray = !getStorage ? [player] : [...getStorage, player];
-    localStorage.setItem('state', JSON.stringify(newArray));
+      assertions,
+    } };
+    localStorage.setItem('state', JSON.stringify(player));
   }
 
   // Função para embaralhar Array retirado do site: https://stackfame.com/5-ways-to-shuffle-an-array-using-moder-javascript-es6
@@ -114,7 +133,6 @@ class TelaDeJogo extends Component {
   }
 
   renderFinalJogo() {
-    this.saveToStore();
     return (
       <Redirect to="/feedback" />
     );
@@ -122,7 +140,6 @@ class TelaDeJogo extends Component {
 
   renderButtonProxima() {
     const { indice } = this.state;
-
     return (
       <button
         type="button"

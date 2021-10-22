@@ -2,27 +2,32 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Header from '../componets/Header';
+import HeaderFeed from '../componets/HeaderFeed';
 
 class Feedback extends Component {
   render() {
-    const { assertions, placar } = this.props;
+    const { player: { assertions } } = JSON.parse(localStorage.getItem('state'));
+    const { placar } = this.props;
+    console.log(typeof placar);
     const TRES = 3;
     return (
       <div>
-        <Header />
+        <HeaderFeed />
         <h1>Feedback</h1>
         <h4 data-testid="feedback-text">
           { assertions >= TRES ? 'Mandou bem!' : 'Podia ser melhor...'}
         </h4>
         <h3 data-testid="feedback-total-score">
-          {`Placar: ${placar}`}
+          {placar}
         </h3>
         <h3 data-testid="feedback-total-question">
-          {`Acertos: ${assertions}`}
+          {+assertions}
         </h3>
         <Link to="/">
           <button data-testid="btn-play-again" type="button">Jogar novamente</button>
+        </Link>
+        <Link to="/ranking">
+          <button data-testid="btn-ranking" type="button">Ver Ranking</button>
         </Link>
       </div>
     );
@@ -30,7 +35,7 @@ class Feedback extends Component {
 }
 
 Feedback.propTypes = {
-  assertions: PropTypes.number.isRequired,
+  // assertions: PropTypes.number.isRequired,
   placar: PropTypes.number.isRequired,
 };
 

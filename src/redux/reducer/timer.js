@@ -11,7 +11,7 @@ function btnRespostaesable(state = INITIAL_STATE, action) {
     return { ...state,
       btnResposta: action.payload };
   case 'SOMA_PLACAR':
-    console.log(action.payload);
+    console.log(state.assertions + 1);
     return { ...state,
       placar: action.payload,
       assertions: state.assertions + 1,

@@ -159,7 +159,7 @@ class TelaDeJogo extends Component {
     const { questions, indice, btnProxima } = this.state;
     const renderQuestions = !questions ? 'Carregado...'
       : this.renderQuestions(questions)[indice];
-    if (questions && indice === questions.length - 1) { return this.renderFinalJogo(); }
+    if (questions && indice === questions.length) { return this.renderFinalJogo(); }
     return (
       <div>
         <Header />

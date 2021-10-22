@@ -11,11 +11,12 @@ function btnRespostaesable(state = INITIAL_STATE, action) {
     return { ...state,
       btnResposta: action.payload };
   case 'SOMA_PLACAR':
+    console.log(action.payload);
     return { ...state,
-      placar: action.payload + state.placar,
-      assertions: state.assertions + 1 };
+      placar: action.payload,
+      assertions: state.assertions + 1,
+    };
   case 'PLAYERS':
-    console.log(state.players);
     return { ...state,
       players: [state.players] };
   default:

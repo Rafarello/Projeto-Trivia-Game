@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import logo from '../images/trivia.png';
 import requestToken from '../services/requestAPITrivia';
 import { loginUser } from '../redux/actions/index';
+import '../css/Login.css';
 
 class Login extends Component {
   constructor() {

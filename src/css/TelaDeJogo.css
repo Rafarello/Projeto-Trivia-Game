@@ -1,0 +1,164 @@
+.correctResponse:disabled {
+  border: 3px solid rgb(6, 240, 15);
+
+  /* background-color: rgb(65, 218, 65); */
+}
+
+.incorrectResponse:disabled {
+  border: 3px solid red;
+
+  /* background-color: rgb(219, 85, 85); */
+}
+
+
+.button-resposta {
+  background-color: white;
+  border-radius: 20px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  color: black;
+  font-size: large;
+  height: 17%;
+  margin-left: 40px;
+  width: 80%;
+}
+
+.button-resposta:hover {
+  background-color: rgb(212, 212, 212);
+}
+
+.respostas {
+  align-items: center;
+  display: flex;
+  flex-basis: 50%;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.categoria-pergunta {
+  align-items: center;
+  display: flex;
+  flex-basis: 50%;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  margin: 10px;
+  width: 98vmax;
+}
+
+.topico {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.pergunta {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 5px;
+  height: 80%;
+  margin-top: 20px;
+  text-align: center;
+  width: 90%;
+}
+
+.card-pergunta {
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  margin-right: 40px;
+  width: 80%;
+}
+
+.timer {
+  align-self: flex-end;
+  margin-right: 50px;
+  padding: 10px;
+}
+
+.name-score {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 3px 0 11px 20px;
+}
+
+.tela-de-jogo {
+  display: flex;
+  height: 500px;
+  justify-content: center;
+}
+
+.box {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  height: 540px;
+  justify-content: stretch;
+  margin-top: 5px;
+  width: 90%;
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 100%;
+  margin-left: 20px;
+}
+
+.dois {
+  display: flex;
+  height: 430px;
+  justify-content: space-around;
+}
+
+.proxima-button {
+  background-color: white;
+  border-radius: 20px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  font-size: large;
+  height: 70px;
+  margin-top: 10px;
+  width: 87%;
+}
+
+.proxima-button:hover {
+  background-color: rgb(221, 222, 223);
+}
+
+.top-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.btn-rankig {
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  height: 70px;
+}
+
+.btn-rankig:hover {
+  background-color: rgb(209, 209, 209);
+}
+
+.b {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,14 @@
+body {
+  background-color: rgb(238, 238, 238);
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background-color: black;
+  border-radius: 5px;
+  font-size: large;
+  height: 5vh;
+  width: 35vh;
+}

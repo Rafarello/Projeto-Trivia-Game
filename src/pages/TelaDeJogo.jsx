@@ -5,8 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Header from '../componets/Header';
 import Timer from '../componets/Timer';
 import { somaPlacar } from '../redux/actions/index';
-
-import './TelaDeJogo.css';
+import '../css/TelaDeJogo.css';
 
 import { requestQuestions } from '../services/requestAPITrivia';
 
@@ -29,14 +28,18 @@ class TelaDeJogo extends Component {
 
   async requestQuestionsApi() {
     const questions = await requestQuestions();
-    this.setState({ questions: questions.results });
+    this.setState({
+      questions: questions.results,
+    });
   }
 
   alteraCorBtn(difficulty) {
     const DEZ = 10;
     const TRES = 3;
-    this.setState({ btnBoolean: true,
-      btnProxima: true });
+    this.setState({
+      btnBoolean: true,
+      btnProxima: true,
+    });
 
     const { disableBtn } = this.props;
     switch (difficulty) {
@@ -70,6 +73,28 @@ class TelaDeJogo extends Component {
     somaPlacarAction(score);
   }
 
+  pergunta(question, btnBool) {
+    return (
+      <div className="categoria-pergunta">
+        <div className="card-pergunta">
+          <div className="pergunta">
+            <div data-testid="question-category" className="topico">
+              <h3>Categoria :</h3>
+              {question.category}
+              {/* {`Categoria: ${question.category}`} */}
+            </div>
+            <div data-testid="question-text" className="topico">
+              <h2>Pergunta :</h2>
+              {question.question}
+              {/* {`Pergunta: ${question.question}`} */}
+            </div>
+          </div>
+          { !btnBool ? <Timer /> : '' }
+        </div>
+      </div>
+    );
+  }
+
   saveToStore() {
     const getStorage = JSON.parse(localStorage.getItem('state'));
     console.log(getStorage);
@@ -91,7 +116,7 @@ class TelaDeJogo extends Component {
     return array.map((question, idx) => {
       const arrayAnswerIncorrect = question.incorrect_answers.map((e, idxx) => (
         <button
-          className="incorrectResponse"
+          className="incorrectResponse button-resposta"
           type="button"
           data-testid={ `wrong-answer-${idxx}` }
           key={ idxx }
@@ -103,7 +128,7 @@ class TelaDeJogo extends Component {
       ));
       const answerCorrect = (
         <button
-          className="correctResponse"
+          className="correctResponse button-resposta"
           type="button"
           data-testid="correct-answer"
           key="4"
@@ -116,17 +141,11 @@ class TelaDeJogo extends Component {
       const allAnswers = [...arrayAnswerIncorrect, answerCorrect];
       const shuffledArr = allAnswers.sort(() => MEIO - Math.random());
       return (
-        <div key={ idx }>
-          <h5 data-testid="question-category">
-            {`Categoria: ${question.category}`}
-          </h5>
-          <h3 data-testid="question-text">
-            {`Pergunta: ${question.question}`}
-          </h3>
-          <div data-testid="question-text">
+        <div key={ idx } className="dois">
+          <div data-testid="question-text" className="respostas">
             { shuffledArr.map((e) => (e))}
           </div>
-          { !btnBool ? <Timer /> : '' }
+          {this.pergunta(question, btnBool)}
         </div>
       );
     });
@@ -144,6 +163,7 @@ class TelaDeJogo extends Component {
       <button
         type="button"
         data-testid="btn-next"
+        className="proxima-button"
         onClick={ () => {
           this.setState({ indice: indice + 1,
             btnBoolean: false,
@@ -163,11 +183,18 @@ class TelaDeJogo extends Component {
     return (
       <div>
         <Header />
-        <h2>Tela de Jogo</h2>
-        {renderQuestions}
-        { !btnProxima ? ''
-          : this.renderButtonProxima()}
-
+        <div className="tela-de-jogo">
+          {/* <h2>Tela de Jogo</h2> */}
+          <div className="box">
+            <div className="a">
+              {renderQuestions}
+            </div>
+            <div className="b">
+              { !btnProxima ? ''
+                : this.renderButtonProxima()}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

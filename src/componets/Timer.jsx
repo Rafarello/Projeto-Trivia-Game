@@ -40,9 +40,9 @@ class Cronometer extends Component {
   render() {
     const { seconds } = this.state;
     return (
-      <h2>
+      <h1 className="timer">
         { seconds === 0 ? 'Tempo Esgotado' : seconds}
-      </h2>
+      </h1>
     );
   }
 }

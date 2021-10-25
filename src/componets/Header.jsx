@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   getScore() {
@@ -10,10 +11,29 @@ class Header extends Component {
   render() {
     const { name, placar, urlGravatar } = this.props;
     return (
-      <header>
-        <img data-testid="header-profile-picture" src={ urlGravatar } alt="Gravatar" />
-        <h3 data-testid="header-player-name">{ name }</h3>
-        <h3 data-testid="header-score">{ placar }</h3>
+      <header className="header">
+        <img
+          className="avatar"
+          data-testid="header-profile-picture"
+          src={ urlGravatar }
+          alt="Gravatar"
+        />
+
+        <div className="top-bar">
+          <div className="name-score">
+            <h3 className="title" data-testid="header-player-name">{ name }</h3>
+            <h3 className="title" data-testid="header-score">{ placar }</h3>
+          </div>
+
+          <Link to="/ranking">
+            <button
+              type="button"
+              className="btn-rankig"
+            >
+              Ranking
+            </button>
+          </Link>
+        </div>
       </header>
     );
   }

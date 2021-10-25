@@ -37,12 +37,16 @@
 }
 
 .button-login {
-  background-color: green;
+  background-color: rgb(0, 179, 0);
   border-radius: 5px;
   color: white;
   font-size: large;
   height: 5vh;
   width: 35vh;
+}
+
+.button-login:hover {
+  background-color: rgb(0, 148, 0);
 }
 
 .button-login[ disabled ], .button-login:disabled {

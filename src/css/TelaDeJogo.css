@@ -134,6 +134,10 @@
   width: 87%;
 }
 
+.proxima-button:hover {
+  background-color: rgb(61, 124, 184);
+}
+
 .top-bar {
   align-items: center;
   display: flex;

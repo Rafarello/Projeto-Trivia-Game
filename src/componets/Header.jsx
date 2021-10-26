@@ -26,7 +26,7 @@ class Header extends Component {
             <h3 className="title" data-testid="header-score">{ placar }</h3>
           </div>
 
-          <Link to="/ranking">
+          <Link to="/ranking" style={ { textDecoration: 'none' } }>
             <button
               type="button"
               className="btn-rankig"

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import YouTube from 'react-youtube';
 import Header from '../componets/Header';
 import Timer from '../componets/Timer';
 import { somaPlacar } from '../redux/actions/index';
@@ -176,6 +177,9 @@ class TelaDeJogo extends Component {
   }
 
   render() {
+    const audioYouTube = {
+      playerVars: { autoplay: 1 },
+    };
     const { questions, indice, btnProxima } = this.state;
     const renderQuestions = !questions ? 'Carregado...'
       : this.renderQuestions(questions)[indice];
@@ -183,6 +187,12 @@ class TelaDeJogo extends Component {
     return (
       <div>
         <Header />
+        <YouTube
+          className="audioVideo"
+          videoId="YvPYFCC1cL0"
+          opts={ audioYouTube }
+          onReady={ this._onReady }
+        />
         <div className="tela-de-jogo">
           {/* <h2>Tela de Jogo</h2> */}
           <div className="box">

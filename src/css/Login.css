@@ -1,7 +1,8 @@
 .login-card {
   align-items: center;
-  background: rgb(202, 202, 202);
-  border-radius: 10px;
+  background: #2d333b;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
   display: flex;
   flex-direction: column;
   height: 60vh;
@@ -13,12 +14,13 @@
 .label {
   display: flex;
   flex-direction: column;
-  font-size: 5vh;
+  font-size: 4vh;
 }
 
 .email-login {
-  border-radius: 5px;
+  border-radius: 20px;
   border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
   font-size: large;
   height: 5vh;
   outline: none;
@@ -27,8 +29,9 @@
 }
 
 .name-login {
-  border-radius: 5px;
+  border-radius: 20px;
   border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
   font-size: large;
   height: 5vh;
   outline: none;
@@ -37,8 +40,9 @@
 }
 
 .button-login {
-  background-color: rgb(0, 179, 0);
-  border-radius: 5px;
+  background-color: #4082d4;
+  border: none;
+  border-radius: 20px;
   color: white;
   font-size: large;
   height: 5vh;
@@ -46,26 +50,25 @@
 }
 
 .button-login:hover {
-  background-color: rgb(0, 148, 0);
+  background-color: #2674cf;
 }
 
 .button-login[ disabled ], .button-login:disabled {
-  background-color: rgb(23, 90, 23);
-  color: rgb(146, 146, 146);
+  background-color: #154785;
+  color: rgb(214, 214, 214);
 }
 
 .button-login:active {
-  background-color: #3e8e41;
+  background-color: #1b4e8d;
   transform: translateY(2px);
 }
 
 .settings {
   align-items: flex-end;
-  background-color: black;
-  border-radius: 50%;
-  height: 30px;
+  color: white;
+  font-size: 35px;
   justify-self: flex-end;
-  width: 30px;
+  text-decoration: 'none';
 }
 
 .tapaburaco {

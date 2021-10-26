@@ -1,22 +1,30 @@
 .correctResponse:disabled {
-  border: 3px solid rgb(6, 240, 15);
 
-  /* background-color: rgb(65, 218, 65); */
+  /* border: 3px solid rgb(6, 240, 15); */
+  background-color: rgb(33, 175, 33);
+}
+
+.correctResponse:disabled:hover {
+  background-color: rgb(35, 136, 35);
 }
 
 .incorrectResponse:disabled {
-  border: 3px solid red;
 
-  /* background-color: rgb(219, 85, 85); */
+  /* border: 3px solid red; */
+  background-color: rgb(219, 85, 85);
+}
+
+.incorrectResponse:disabled:hover {
+  background-color: rgb(190, 69, 69);
 }
 
 
 .button-resposta {
-  background-color: white;
+  background-color: #4082d4;
   border-radius: 20px;
   border-style: none;
   box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
-  color: black;
+  color: #f9f9f9;
   font-size: large;
   height: 17%;
   margin-left: 40px;
@@ -24,7 +32,7 @@
 }
 
 .button-resposta:hover {
-  background-color: rgb(212, 212, 212);
+  background-color: rgb(30, 93, 165);
 }
 
 .respostas {
@@ -56,7 +64,7 @@
 }
 
 .pergunta {
-  background-color: white;
+  background-color: #2d333b;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.164) 0 0 5px;
   height: 80%;
@@ -67,7 +75,7 @@
 
 .card-pergunta {
   align-items: center;
-  background-color: white;
+  background-color: #3e454e;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
   display: flex;
@@ -100,7 +108,7 @@
 }
 
 .box {
-  background-color: white;
+  background-color: #2d333b;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
   display: flex;
@@ -124,7 +132,7 @@
 }
 
 .proxima-button {
-  background-color: white;
+  background-color: #4082d4;
   border-radius: 20px;
   border-style: none;
   box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
@@ -135,7 +143,7 @@
 }
 
 .proxima-button:hover {
-  background-color: rgb(221, 222, 223);
+  background-color: rgb(30, 93, 165);
 }
 
 .top-bar {
@@ -146,19 +154,33 @@
 }
 
 .btn-rankig {
-  background-color: white;
+  align-items: center;
+  background-color: #444c56;
   border: none;
   border-radius: 20px;
   border-style: none;
   box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  color: rgb(209, 209, 209);
+  display: flex;
   height: 70px;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .btn-rankig:hover {
-  background-color: rgb(209, 209, 209);
+  background-color: #2f353b;
+
 }
 
 .b {
   display: flex;
   justify-content: center;
+}
+
+.ranking {
+  margin-right: 10px;
+}
+
+.trofeu {
+  color: #fdac42;
 }

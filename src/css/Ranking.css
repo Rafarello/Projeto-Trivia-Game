@@ -1,0 +1,37 @@
+.ranking-card {
+  align-items: center;
+  background: #2d333b;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-top: 50px;
+  width: 55vh;
+}
+
+.button-play-again {
+  background-color: #4082d4;
+  border-radius: 20px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  font-size: large;
+  height: 70px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.button-play-again:hover {
+  background-color: rgb(30, 93, 165);
+}
+
+.ranking-pont {
+  background-color: #444c56;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px;
+  width: 80%;
+}

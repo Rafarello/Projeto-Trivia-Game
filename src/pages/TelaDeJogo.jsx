@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import Header from '../componets/Header';
 import Timer from '../componets/Timer';
-import { somaPlacar } from '../redux/actions/index';
+import { somaPlacar, resetplacar } from '../redux/actions/index';
 import '../css/TelaDeJogo.css';
 
 import { requestQuestions } from '../services/requestAPITrivia';
@@ -23,8 +23,23 @@ class TelaDeJogo extends Component {
   }
 
   componentDidMount() {
+    const { resetPlacarAction } = this.props;
     this.requestQuestionsApi();
     this.saveToStore();
+    resetPlacarAction();
+  }
+
+  ranking() {
+    const { name, placar, email } = this.props;
+    const player = { player: {
+      name,
+      picture: email,
+      score: placar,
+    } };
+    const getStorageRanking = JSON.parse(localStorage.getItem('ranking'));
+    const newArray = !getStorageRanking
+      ? [player] : [...getStorageRanking, player];
+    localStorage.setItem('ranking', JSON.stringify(newArray));
   }
 
   async requestQuestionsApi() {
@@ -61,14 +76,12 @@ class TelaDeJogo extends Component {
 
   alteraScoreLocalStorage(score) {
     const getStorage = JSON.parse(localStorage.getItem('state'));
-    console.log(getStorage);
-
-    const { name, email, assertions, somaPlacarAction } = this.props;
+    const { name, email, somaPlacarAction } = this.props;
     const player = { player: {
       name,
       gravatarEmail: email,
-      score,
-      assertions,
+      score: getStorage.player.score + score,
+      assertions: getStorage.player.assertions + 1,
     } };
     localStorage.setItem('state', JSON.stringify(player));
     somaPlacarAction(score);
@@ -82,12 +95,10 @@ class TelaDeJogo extends Component {
             <div data-testid="question-category" className="topico">
               <h3>Categoria :</h3>
               {question.category}
-              {/* {`Categoria: ${question.category}`} */}
             </div>
             <div data-testid="question-text" className="topico">
               <h2>Pergunta :</h2>
               {question.question}
-              {/* {`Pergunta: ${question.question}`} */}
             </div>
           </div>
           { !btnBool ? <Timer /> : '' }
@@ -99,7 +110,7 @@ class TelaDeJogo extends Component {
   saveToStore() {
     const getStorage = JSON.parse(localStorage.getItem('state'));
     console.log(getStorage);
-    const { name, placar, email, assertions } = this.props;
+    const { name, placar = 0, email, assertions = 0 } = this.props;
     const player = { player: {
       name,
       gravatarEmail: email,
@@ -153,6 +164,7 @@ class TelaDeJogo extends Component {
   }
 
   renderFinalJogo() {
+    this.ranking();
     return (
       <Redirect to="/feedback" />
     );
@@ -191,10 +203,8 @@ class TelaDeJogo extends Component {
           className="audioVideo"
           videoId="YvPYFCC1cL0"
           opts={ audioYouTube }
-          onReady={ this._onReady }
         />
         <div className="tela-de-jogo">
-          {/* <h2>Tela de Jogo</h2> */}
           <div className="box">
             <div className="a">
               {renderQuestions}
@@ -217,6 +227,7 @@ TelaDeJogo.propTypes = {
   name: PropTypes.string.isRequired,
   placar: PropTypes.number.isRequired,
   somaPlacarAction: PropTypes.func.isRequired,
+  resetPlacarAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -230,6 +241,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   somaPlacarAction: (e) => dispatch(somaPlacar(e)),
+  resetPlacarAction: (e) => dispatch(resetplacar(e)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TelaDeJogo);

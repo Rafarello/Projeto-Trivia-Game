@@ -1,7 +1,7 @@
 .correctResponse:disabled {
+  border: 3px solid rgb(6, 240, 15);
 
-  /* border: 3px solid rgb(6, 240, 15); */
-  background-color: rgb(33, 175, 33);
+  /* background-color: rgb(33, 175, 33); */
 }
 
 .correctResponse:disabled:hover {
@@ -9,9 +9,9 @@
 }
 
 .incorrectResponse:disabled {
+  border: 3px solid red;
 
-  /* border: 3px solid red; */
-  background-color: rgb(219, 85, 85);
+  /* background-color: rgb(219, 85, 85); */
 }
 
 .incorrectResponse:disabled:hover {

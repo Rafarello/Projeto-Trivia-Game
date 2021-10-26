@@ -44,7 +44,7 @@ class Login extends Component {
           <div className="tapaburaco" />
           <img src={ logo } alt="Trivia" className="logo" />
           <Link to="/settings" title="Configurações" className="settings">
-            <span className="settings"><IoMdSettings /></span>
+            <span data-testid="btn-settings" className="settings"><IoMdSettings /></span>
           </Link>
         </div>
         <label htmlFor="inputName" className="label">

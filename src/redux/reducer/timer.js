@@ -13,12 +13,17 @@ function btnRespostaesable(state = INITIAL_STATE, action) {
   case 'SOMA_PLACAR':
     console.log(state.assertions + 1);
     return { ...state,
-      placar: action.payload,
-      assertions: state.assertions + 1,
+      placar: action.payload + state.placar,
+      assertions: state.assertions,
     };
   case 'PLAYERS':
     return { ...state,
       players: [state.players] };
+  case 'RESET_PLACAR':
+    return { ...state,
+      placar: 0,
+      assertions: 0,
+    };
   default:
     return state;
   }

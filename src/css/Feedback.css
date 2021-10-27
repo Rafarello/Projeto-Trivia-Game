@@ -1,0 +1,38 @@
+.feedback {
+  font-size: 55px;
+}
+
+.feedback-card {
+  align-items: center;
+  background: #2d333b;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.164) 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-top: 50px;
+  width: 55vh;
+}
+
+.button-play-again {
+  background-color: #4082d4;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: large;
+  height: 5vh;
+  width: 35vh;
+}
+
+.button-play-again:hover {
+  background-color: #2f67ac;
+}
+
+.result-final {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+}

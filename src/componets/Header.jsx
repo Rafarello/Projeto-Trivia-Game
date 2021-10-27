@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { AiFillTrophy } from 'react-icons/ai';
 
 class Header extends Component {
   getScore() {
@@ -25,12 +26,13 @@ class Header extends Component {
             <h3 className="title" data-testid="header-score">{ placar }</h3>
           </div>
 
-          <Link to="/ranking">
+          <Link to="/ranking" style={ { textDecoration: 'none' } }>
             <button
               type="button"
               className="btn-rankig"
             >
-              Ranking
+              <div className="ranking">Ranking</div>
+              <AiFillTrophy className="trofeu" />
             </button>
           </Link>
         </div>

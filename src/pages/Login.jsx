@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { IoMdSettings } from 'react-icons/io';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -42,8 +43,8 @@ class Login extends Component {
         <div className="top-login">
           <div className="tapaburaco" />
           <img src={ logo } alt="Trivia" className="logo" />
-          <Link to="/settings" title="Configurações">
-            <div type="button" className="settings" data-testid="btn-settings" />
+          <Link to="/settings" title="Configurações" className="settings">
+            <span data-testid="btn-settings" className="settings"><IoMdSettings /></span>
           </Link>
         </div>
         <label htmlFor="inputName" className="label">

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../componets/Header';
+import '../css/Feedback.css';
 
 class Feedback extends Component {
   render() {
@@ -13,22 +14,40 @@ class Feedback extends Component {
     return (
       <div>
         <Header />
-        <h1>Feedback</h1>
-        <h4 data-testid="feedback-text">
-          { assertions + 1 >= TRES ? 'Mandou bem!' : 'Podia ser melhor...'}
-        </h4>
-        <h3 data-testid="feedback-total-score">
-          {placar}
-        </h3>
-        <h3 data-testid="feedback-total-question">
-          {assertions}
-        </h3>
-        <Link to="/">
-          <button data-testid="btn-play-again" type="button">Jogar novamente</button>
-        </Link>
-        <Link to="/ranking">
-          <button data-testid="btn-ranking" type="button">Ver Ranking</button>
-        </Link>
+        <div className="feedback-card">
+          <h1 className="feedback">Feedback</h1>
+          <div className="result-final">
+            <h4 data-testid="feedback-text">
+              { assertions >= TRES ? 'Mandou bem!' : 'Podia ser melhor...'}
+            </h4>
+            <h3 data-testid="feedback-total-score">
+              {placar}
+            </h3>
+            <h3 data-testid="feedback-total-question">
+              {assertions}
+            </h3>
+          </div>
+          <Link to="/">
+            <button
+              data-testid="btn-play-again"
+              className="button-play-again"
+              type="button"
+            >
+              Jogar novamente
+
+            </button>
+          </Link>
+          <Link to="/ranking">
+            <button
+              data-testid="btn-ranking"
+              className="button-play-again"
+              type="button"
+            >
+              Ver Ranking
+
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }

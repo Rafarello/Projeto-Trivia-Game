@@ -38,4 +38,11 @@ Foi utilizado o EsLint como ferramenta de qualidade de código, para garantir qu
 
 ---
 
+# Para iniciar o projeto
+
+- Primeiro passo é fazer o clone em sua máquina.
+- Instalar as dependências utilizando o comando `npm run install` no terminal
+- Iniciar a aplicação React com `npm run start` no terminal
+
+
 
